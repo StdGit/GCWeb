@@ -98,25 +98,29 @@ function OpenMenu( elm ) {
 }
 function CloseMenu( elm, force ) {
 
-	// Ensure elm is targeted on the haspopup element
-	if ( !elm.hasAttribute( "aria-haspopup" ) ) {
-		elm = elm.previousElementSibling;
-	}
+	//Ensure elm isn't null
+	if ( elm ) {
 
-	if ( !force ) {
-
-		// Can the menu be closed?
-		// Get the menu item that has the focus.
-		var currentFocusIsOn = elm.nextElementSibling.querySelector( "[role=menuitem]:focus" );
-		var siblingHasFocus = elm.parentElement.parentElement.querySelector( "[role=menuitem]:focus" );
-
-		// Check if we keep the menu opon
-		if ( currentFocusIsOn || siblingHasFocus === elm ) {
-			return;
+		// Ensure elm is targeted on the haspopup element
+		if ( !elm.hasAttribute( "aria-haspopup" ) ) {
+			elm = elm.previousElementSibling;
 		}
-	}
 
-	elm.setAttribute( "aria-expanded", "false" );
+		if ( !force ) {
+
+			// Can the menu be closed?
+			// Get the menu item that has the focus.
+			var currentFocusIsOn = elm.nextElementSibling.querySelector( "[role=menuitem]:focus" );
+			var siblingHasFocus = elm.parentElement.parentElement.querySelector( "[role=menuitem]:focus" );
+
+			// Check if we keep the menu opon
+			if ( currentFocusIsOn || siblingHasFocus === elm ) {
+				return;
+			}
+		}
+
+		elm.setAttribute( "aria-expanded", "false" );
+	}
 }
 
 // On hover, wait for the delay before to open the menu
